@@ -11,7 +11,7 @@ async function fetchFilms() {
 
 export default function MovieList() {
     const { data, isLoading, error } = useQuery({
-        queryKey: [ "ghibliFilms" ],
+        queryKey: [ "ghibliFilms", "list" ],
         queryFn: fetchFilms
     });
 

@@ -43,7 +43,9 @@ export default function MovieDetails() {
             </p>
             <h4>Released in: {data.release_date}</h4>
             <h4>Description</h4>
-            <p style={{ textAlign: "left" }}>{data.description}</p>
+            <p style={{ textAlign: "left" }}>
+                {data.description}
+            </p>
         </>
     )
 }

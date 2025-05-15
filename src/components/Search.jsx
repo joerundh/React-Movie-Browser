@@ -13,17 +13,19 @@ async function searchFilms() {
 export default function Search() {
     const navigate = useNavigate();
 
-    const [ searchParams ] = useSearchParams()
-    const [ searchString, setSearchString ] = useState(searchParams.get("q") || "");
+    const [ searchParams ] = useSearchParams();
+    const params = Array.from(searchParams.entries()).reduce((acc, [key, value]) => { acc[key] = value; return acc; }, {});
+
+    const [ searchString, setSearchString ] = useState(params.q || "");
 
     const { data, isLoading, error } = useQuery({
         queryKey: [ "ghibliSearch" ],
         queryFn: searchFilms,
-        enabled: !!searchParams.get("q")
+        enabled: !!params
     })
 
     const searchResults = () => {
-        if (!searchParams.get("q")) return (
+        if (!params.q) return (
             <></>
         )
         if (isLoading) return (
@@ -35,8 +37,8 @@ export default function Search() {
                 <h4>{error.message}</h4>
             </>
         )
-        const results = data.filter(film => film.title.toLowerCase().includes(searchParams.get("q").toLowerCase()));
-        return <SearchResults query={searchParams.get("q")} results={results} />
+        const results = data.filter(film => film.title.toLowerCase().includes(params.q.toLowerCase()));
+        return <SearchResults query={params.q} results={results} />
     }
 
     const resetForm = e => {
