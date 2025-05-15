@@ -36,7 +36,7 @@ const router = createBrowserRouter([
             index: true,
             element: <>
               <h3>Error</h3>
-              <h4>No valid movie ID entered</h4>
+              <h4>No valid movie ID entered.</h4>
             </>
           },
           {
