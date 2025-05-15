@@ -4,7 +4,7 @@ import { Link } from "react-router";
 async function fetchFilms() {
     const res = await fetch("https://ghibliapi.vercel.app/films");
     if (!res.ok) {
-        throw new Error("Kunne ikke hente filmer");
+        throw new Error("Unable to fetch movies");
     }
     return await res.json();
 }
