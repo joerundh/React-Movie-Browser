@@ -31,7 +31,7 @@ export default function MovieList() {
                     {
                         data.map(film => (
                             <li key={film.id} style={{ listStyleType: "none", width: "fit-content" }}>
-                                <h3><Link to={`/film/${film.id}`}>{film.title}</Link></h3>
+                                <h3><Link to={`/film/${film.id}`}>{film.title} ({film.release_date})</Link></h3>
                             </li>
                         ))
                     }

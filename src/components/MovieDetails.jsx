@@ -2,12 +2,9 @@ import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-quer
 import { useParams, useNavigate, Link } from "react-router"
 
 async function fetchFilm(id) {
-    if (!id) {
-        return {};
-    }
     const res = await fetch(`https://ghibliapi.vercel.app/films/${id}`);
     if (!res.ok) {
-        return {}
+        throw new Error("No valid movie ID entered.")
     }
     return await res.json();
 }
@@ -17,7 +14,7 @@ export default function MovieDetails() {
     const { ...params } = useParams();
     
     const { data, isLoading, error } = useQuery({
-        queryKey: [ "ghibliFilm" ],
+        queryKey: [ `ghibliFilm`, params.id ],
         queryFn: () => fetchFilm(params.id)
     });
 
@@ -26,21 +23,11 @@ export default function MovieDetails() {
             <p>Loading movie details...</p>
         )
     }
-
     if (error) {
         return (
             <>
                 <h3>Error</h3>
                 <p>{error.message}</p>
-            </>
-        )
-    }
-
-    if (!Object.keys(data).length) {
-        return (
-            <>
-                <h3>Error</h3>
-                <h4>No movie details found.</h4>
             </>
         )
     }
